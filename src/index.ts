@@ -121,10 +121,10 @@ export default class Logger {
             alignedSeverity = alignText(severity.toUpperCase(), 5, ' '),
             alignedSystem = alignText(this.opts.system.toUpperCase(), 7, '-'),
             alignedCluster = alignText(this.opts.cluster.toString(), 2, '0'),
-            divider = color.white(' ¦ ', 'dim');
+            divider = color.black(' ¦ ', 'bright');
         return {
             raw: date + ' ¦ [' + alignedCluster + '] ' + alignedSystem + ' ¦ ' + alignedSeverity + ' ¦ ' + msg + '\n',
-            color: color.white(date, 'dim') + divider + color.cyan('[' + alignedCluster + '] ' + alignedSystem, this.opts.cluster === 0 ? 'bright' : 'dim') + divider + color[colorMap[severity]](alignedSeverity, 'bright') + divider + msg
+            color: color.black(date, 'bright') + divider + color.cyan('[' + alignedCluster + '] ' + alignedSystem, this.opts.cluster === 0 ? 'bright' : 'dim') + divider + color[colorMap[severity]](alignedSeverity, 'bright') + divider + msg
         }
 
         function alignText(str: string, length: number, fillChar: string) {

@@ -99,10 +99,10 @@ class Logger {
             error: 'red',
             debug: 'blue',
             fatal: 'cyan'
-        }, isoString = new Date(Date.now() - this.timezoneOffset).toISOString(), date = `${isoString.slice(0, 10)} ${isoString.slice(11, 19)}`, alignedSeverity = alignText(severity.toUpperCase(), 5, ' '), alignedSystem = alignText(this.opts.system.toUpperCase(), 7, '-'), alignedCluster = alignText(this.opts.cluster.toString(), 2, '0'), divider = addcolor_1.default.white(' ¦ ', 'dim');
+        }, isoString = new Date(Date.now() - this.timezoneOffset).toISOString(), date = `${isoString.slice(0, 10)} ${isoString.slice(11, 19)}`, alignedSeverity = alignText(severity.toUpperCase(), 5, ' '), alignedSystem = alignText(this.opts.system.toUpperCase(), 7, '-'), alignedCluster = alignText(this.opts.cluster.toString(), 2, '0'), divider = addcolor_1.default.black(' ¦ ', 'bright');
         return {
             raw: date + ' ¦ [' + alignedCluster + '] ' + alignedSystem + ' ¦ ' + alignedSeverity + ' ¦ ' + msg + '\n',
-            color: addcolor_1.default.white(date, 'dim') + divider + addcolor_1.default.cyan('[' + alignedCluster + '] ' + alignedSystem, this.opts.cluster === 0 ? 'bright' : 'dim') + divider + addcolor_1.default[colorMap[severity]](alignedSeverity, 'bright') + divider + msg
+            color: addcolor_1.default.black(date, 'bright') + divider + addcolor_1.default.cyan('[' + alignedCluster + '] ' + alignedSystem, this.opts.cluster === 0 ? 'bright' : 'dim') + divider + addcolor_1.default[colorMap[severity]](alignedSeverity, 'bright') + divider + msg
         };
         function alignText(str, length, fillChar) {
             const l = str.length;
