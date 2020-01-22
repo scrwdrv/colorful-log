@@ -1,0 +1,33 @@
+{
+  "name": "colorful-log",
+  "version": "1.0.0",
+  "description": "Simple, lightweight and good looking logger.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/scrwdrv/colorful-log.git"
+  },
+  "keywords": [
+    "console",
+    "log",
+    "logger",
+    "color",
+    "cli"
+  ],
+  "author": "scrwdrv",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/scrwdrv/colorful-log/issues"
+  },
+  "homepage": "https://github.com/scrwdrv/colorful-log#readme",
+  "dependencies": {
+    "addcolor": "^1.0.4",
+    "recurdir": "^1.0.9"
+  },
+  "devDependencies": {
+    "@types/node": "^13.1.8"
+  }
+}
