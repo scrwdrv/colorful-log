@@ -1,6 +1,6 @@
 {
   "name": "colorful-log",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Simple, lightweight and good looking logger.",
   "main": "index.js",
   "scripts": {
@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/scrwdrv/colorful-log#readme",
   "dependencies": {
-    "addcolor": "^1.0.4",
+    "addcolor": "^1.0.6",
     "recurdir": "^1.0.9"
   },
   "devDependencies": {
