@@ -104,22 +104,17 @@ class Logger {
             error: 'redBright',
             debug: 'blueBright',
             fatal: 'cyanBright'
-        }, isoString = new Date(Date.now() - this.timezoneOffset).toISOString(), date = `${isoString.slice(0, 10)} ${isoString.slice(11, 19)}`, alignedSeverity = alignText(severity.toUpperCase(), 5, ' '), alignedSystem = alignText(this.opts.system.toUpperCase(), this.maxLength, '-', 'blackBright'), alignedCluster = alignText(this.opts.cluster.toString(), 2, '0'), divider = addcolor_1.default.blackBright(' ¦ ');
+        }, isoString = new Date(Date.now() - this.timezoneOffset).toISOString(), date = `${isoString.slice(0, 10)} ${isoString.slice(11, 19)}`, alignedSeverity = alignText(severity.toUpperCase(), 5, ' '), alignedSystem = alignText(this.opts.system.toUpperCase(), this.maxLength, ' '), alignedCluster = alignText(this.opts.cluster.toString(), 2, '0'), divider = addcolor_1.default.blackBright(' ¦ ');
         return {
             raw: date + ' ¦ [' + alignedCluster + '] ' + alignedSystem + ' ¦ ' + alignedSeverity + ' ¦ ' + msg + '\n',
             color: addcolor_1.default.blackBright(date) + divider + addcolor_1.default[this.opts.cluster === 0 ? 'cyanBright' : 'cyan']('[' + alignedCluster + '] ' + alignedSystem) + divider + addcolor_1.default[colorMap[severity]](alignedSeverity) + divider + msg
         };
-        function alignText(str, length, fillChar, fillColor) {
+        function alignText(str, length, fillChar) {
             const l = str.length;
             if (l <= length)
-                if (fillColor)
-                    return addcolor_1.default[fillColor](fillChar.repeat(length - l)) + str;
-                else
-                    return fillChar.repeat(length - l) + str;
-            else if (fillColor)
-                return str.slice(0, length - 2) + addcolor_1.default[fillColor]('..');
+                return fillChar.repeat(length - l) + str;
             else
-                return str.slice(0, length - 2) + '..';
+                return str.slice(0, length - 2) + addcolor_1.default.blackBright('..');
         }
     }
 }

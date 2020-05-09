@@ -129,7 +129,7 @@ export default class Logger {
         }, isoString = new Date(Date.now() - this.timezoneOffset).toISOString(),
             date = `${isoString.slice(0, 10)} ${isoString.slice(11, 19)}`,
             alignedSeverity = alignText(severity.toUpperCase(), 5, ' '),
-            alignedSystem = alignText((<string>this.opts.system).toUpperCase(), this.maxLength, '-', 'blackBright'),
+            alignedSystem = alignText((<string>this.opts.system).toUpperCase(), this.maxLength, ' '),
             alignedCluster = alignText(this.opts.cluster.toString(), 2, '0'),
             divider = color.blackBright(' ¦ ');
         return {
@@ -137,13 +137,11 @@ export default class Logger {
             color: color.blackBright(date) + divider + color[this.opts.cluster === 0 ? 'cyanBright' : 'cyan']('[' + alignedCluster + '] ' + alignedSystem) + divider + color[colorMap[severity]](alignedSeverity) + divider + msg
         }
 
-        function alignText(str: string, length: number, fillChar: string, fillColor?: string) {
+        function alignText(str: string, length: number, fillChar: string) {
             const l = str.length;
             if (l <= length)
-                if (fillColor) return color[fillColor](fillChar.repeat(length - l)) + str
-                else return fillChar.repeat(length - l) + str;
-            else if (fillColor) return str.slice(0, length - 2) + color[fillColor]('..');
-            else return str.slice(0, length - 2) + '..';
+                return fillChar.repeat(length - l) + str;
+            else return str.slice(0, length - 2) + color.blackBright('..');
         }
     }
 }
