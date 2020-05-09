@@ -129,7 +129,7 @@ export default class Logger {
         }, isoString = new Date(Date.now() - this.timezoneOffset).toISOString(),
             date = `${isoString.slice(0, 10)} ${isoString.slice(11, 19)}`,
             alignedSeverity = alignText(severity.toUpperCase(), 5, ' '),
-            alignedSystem = alignText((<string>this.opts.system).toUpperCase(), this.maxLength, ' '),
+            alignedSystem = alignText((<string>this.opts.system).toUpperCase(), this.maxLength, '-'),
             alignedCluster = alignText(this.opts.cluster.toString(), 2, '0'),
             divider = color.blackBright(' ¦ ');
         return {
@@ -141,7 +141,7 @@ export default class Logger {
             const l = str.length;
             if (l <= length)
                 return fillChar.repeat(length - l) + str;
-            else return str.slice(0, length - 2) + color.blackBright('..');
+            else return str.slice(0, length - 2) + '..'
         }
     }
 }
