@@ -9,6 +9,7 @@ class Logger {
         this.opts = {};
         this.timezoneOffset = new Date().getTimezoneOffset() * 60000;
         this.pending = '';
+        this.maxLength = 7;
         if (opts)
             for (let opt in opts)
                 this.opts[opt] = opts[opt];
@@ -20,6 +21,10 @@ class Logger {
             this.opts.cluster = 0;
         if (this.opts.system === undefined)
             this.opts.system = 'logger';
+        else if (typeof this.opts.system !== 'string') {
+            this.maxLength = this.opts.system.maxLength;
+            this.opts.system = this.opts.system.name;
+        }
         if (this.opts.saveInterval === undefined)
             this.opts.saveInterval = 60000;
         for (let severity of ['info', 'warn', 'error', 'debug'])
@@ -99,7 +104,7 @@ class Logger {
             error: 'redBright',
             debug: 'blueBright',
             fatal: 'cyanBright'
-        }, isoString = new Date(Date.now() - this.timezoneOffset).toISOString(), date = `${isoString.slice(0, 10)} ${isoString.slice(11, 19)}`, alignedSeverity = alignText(severity.toUpperCase(), 5, ' '), alignedSystem = alignText(this.opts.system.toUpperCase(), 7, '-'), alignedCluster = alignText(this.opts.cluster.toString(), 2, '0'), divider = addcolor_1.default.blackBright(' ¦ ');
+        }, isoString = new Date(Date.now() - this.timezoneOffset).toISOString(), date = `${isoString.slice(0, 10)} ${isoString.slice(11, 19)}`, alignedSeverity = alignText(severity.toUpperCase(), 5, ' '), alignedSystem = alignText(this.opts.system.toUpperCase(), this.maxLength, '-'), alignedCluster = alignText(this.opts.cluster.toString(), 2, '0'), divider = addcolor_1.default.blackBright(' ¦ ');
         return {
             raw: date + ' ¦ [' + alignedCluster + '] ' + alignedSystem + ' ¦ ' + alignedSeverity + ' ¦ ' + msg + '\n',
             color: addcolor_1.default.blackBright(date) + divider + addcolor_1.default[this.opts.cluster === 0 ? 'cyanBright' : 'cyan']('[' + alignedCluster + '] ' + alignedSystem) + divider + addcolor_1.default[colorMap[severity]](alignedSeverity) + divider + msg

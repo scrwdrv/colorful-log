@@ -3,8 +3,13 @@ import color from 'addcolor';
 import * as PATH from 'path';
 import * as fs from 'fs';
 
+interface System {
+    name: string;
+    maxLength: number;
+}
+
 interface LoggerOptions {
-    system?: string;
+    system?: string | System;
     cluster?: number;
     debug?: boolean;
     path?: string;
@@ -17,6 +22,7 @@ export default class Logger {
     private opts: LoggerOptions = {};
     private timezoneOffset = new Date().getTimezoneOffset() * 60000;
     private pending = '';
+    private maxLength = 7;
 
     public info: Log;
     public warn: Log;
@@ -30,6 +36,10 @@ export default class Logger {
         if (this.opts.path === undefined) this.opts.path = './logs';
         if (this.opts.cluster === undefined) this.opts.cluster = 0;
         if (this.opts.system === undefined) this.opts.system = 'logger';
+        else if (typeof this.opts.system !== 'string') {
+            this.maxLength = this.opts.system.maxLength;
+            this.opts.system = this.opts.system.name;
+        }
         if (this.opts.saveInterval === undefined) this.opts.saveInterval = 60000;
 
         for (let severity of ['info', 'warn', 'error', 'debug'])
@@ -119,7 +129,7 @@ export default class Logger {
         }, isoString = new Date(Date.now() - this.timezoneOffset).toISOString(),
             date = `${isoString.slice(0, 10)} ${isoString.slice(11, 19)}`,
             alignedSeverity = alignText(severity.toUpperCase(), 5, ' '),
-            alignedSystem = alignText(this.opts.system.toUpperCase(), 7, '-'),
+            alignedSystem = alignText((<string>this.opts.system).toUpperCase(), this.maxLength, '-'),
             alignedCluster = alignText(this.opts.cluster.toString(), 2, '0'),
             divider = color.blackBright(' ¦ ');
         return {
